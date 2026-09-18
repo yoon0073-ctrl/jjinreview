@@ -4,150 +4,293 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>찐리뷰</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#f4f4f6;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#171717}
-.app{max-width:480px;min-height:100vh;margin:auto;background:white}
-header{padding:30px 20px 20px;border-bottom:1px solid #eee}
-.logo{font-size:30px;font-weight:900}
-.slogan{font-size:13px;color:#888;margin-top:4px}
-.search{display:flex;gap:8px;margin-top:18px}
-input,textarea{font:inherit}
-.search input{flex:1;min-width:0;padding:14px;border:1px solid #ddd;border-radius:13px}
-button{border:0;border-radius:13px;background:#111;color:white;padding:13px 17px;font-weight:800}
-.content{padding:20px}
-.card{border:1px solid #e7e7e7;border-radius:18px;padding:18px;margin-bottom:14px}
-.name{font-size:20px;font-weight:850}
-.muted{color:#888;font-size:13px;margin-top:5px}
-.score{font-size:42px;font-weight:900;margin-top:15px}
-.badge{display:inline-block;padding:7px 10px;border-radius:20px;background:#eaf8ef;color:#168341;font-size:12px;font-weight:800}
-.red{background:#fff0f0;color:#d33}
-.yellow{background:#fff7dc;color:#9a7200}
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
-.tag{background:#f2f2f4;border-radius:20px;padding:8px 10px;font-size:12px}
-.section{font-size:19px;font-weight:850;margin:22px 0 12px}
-.review{line-height:1.7;font-size:15px;margin-top:12px}
-.reason{background:#f7f7f8;border-radius:12px;padding:12px;margin-top:12px;font-size:13px;line-height:1.6}
-.textarea{width:100%;height:160px;padding:14px;border:1px solid #ddd;border-radius:13px;resize:none;line-height:1.6}
-.full{width:100%;margin-top:10px}
-.back{background:white;color:#222;border:1px solid #ddd}
-.hidden{display:none}
-.notice{font-size:11px;color:#999;line-height:1.5;margin-top:18px}
+
+body{
+margin:0;
+background:#f4f4f6;
+font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+color:#171717
+}
+
+.app{
+max-width:480px;
+min-height:100vh;
+margin:auto;
+background:white
+}
+
+header{
+padding:30px 20px 20px;
+border-bottom:1px solid #eee
+}
+
+.logo{
+font-size:30px;
+font-weight:900
+}
+
+.slogan{
+font-size:13px;
+color:#888;
+margin-top:4px
+}
+
+.search{
+display:flex;
+gap:8px;
+margin-top:18px
+}
+
+.search input{
+flex:1;
+min-width:0;
+padding:14px;
+border:1px solid #ddd;
+border-radius:13px
+}
+
+button{
+border:0;
+border-radius:13px;
+background:#111;
+color:white;
+padding:13px 17px;
+font-weight:800;
+cursor:pointer
+}
+
+.content{
+padding:20px
+}
+
+.card{
+border:1px solid #e7e7e7;
+border-radius:18px;
+padding:18px;
+margin-bottom:14px
+}
+
+.card.clickable{
+cursor:pointer
+}
+
+.name{
+font-size:20px;
+font-weight:850
+}
+
+.muted{
+color:#888;
+font-size:13px;
+margin-top:5px
+}
+
+.score{
+font-size:42px;
+font-weight:900;
+margin-top:15px
+}
+
+.badge{
+display:inline-block;
+padding:7px 10px;
+border-radius:20px;
+background:#eaf8ef;
+color:#168341;
+font-size:12px;
+font-weight:800
+}
+
+.red{
+background:#fff0f0;
+color:#d33
+}
+
+.yellow{
+background:#fff7dc;
+color:#9a7200
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:7px;
+margin-top:13px
+}
+
+.tag{
+background:#f2f2f4;
+border-radius:20px;
+padding:8px 10px;
+font-size:12px
+}
+
+.section{
+font-size:19px;
+font-weight:850;
+margin:22px 0 12px
+}
+
+.review{
+line-height:1.7;
+font-size:15px;
+margin-top:12px
+}
+
+.reason{
+background:#f7f7f8;
+border-radius:12px;
+padding:12px;
+margin-top:12px;
+font-size:13px;
+line-height:1.6
+}
+
+.textarea{
+width:100%;
+height:160px;
+padding:14px;
+border:1px solid #ddd;
+border-radius:13px;
+resize:none;
+line-height:1.6
+}
+
+.full{
+width:100%;
+margin-top:10px
+}
+
+.back{
+background:white;
+color:#222;
+border:1px solid #ddd
+}
+
+.hidden{
+display:none
+}
+
+.notice{
+font-size:11px;
+color:#999;
+line-height:1.5;
+margin-top:18px
+}
+
+.result-count{
+font-size:14px;
+color:#777;
+margin:15px 0
+}
+
+.empty{
+text-align:center;
+padding:50px 20px;
+color:#888
+}
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <header>
+
 <div class="logo">찐리뷰</div>
-<div class="slogan">광고보다 실제 경험을 믿습니다.</div>
+
+<div class="slogan">
+광고보다 실제 경험을 믿습니다.
+</div>
 
 <div class="search">
-<input id="search" value="돼지국밥" placeholder="맛집을 검색하세요">
-<button onclick="searchRestaurant()">검색</button>
+
+<input
+id="search"
+value=""
+placeholder="맛집을 검색하세요">
+
+<button onclick="searchRestaurant()">
+검색
+</button>
+
 </div>
+
 </header>
 
+
 <!-- 홈 -->
+
 <main id="home" class="content">
 
-<div class="section">추천 맛집</div>
-
-<div class="card" onclick="showRestaurant()">
-<div class="name">부산집 돼지국밥</div>
-<div class="muted">부산 · 돼지국밥 · ⭐ 4.4</div>
-
-<div class="score">87</div>
-<span class="badge">리뷰 신뢰도 높음</span>
-
-<div class="tags">
-<span class="tag">🟢 신뢰 리뷰 324</span>
-<span class="tag">🟡 판단 보류 86</span>
-<span class="tag">🔴 주의 리뷰 31</span>
-</div>
+<div class="section">
+추천 맛집
 </div>
 
-<div class="section">새로운 기능</div>
+<div id="homeList"></div>
+
+<div class="section">
+새로운 기능
+</div>
 
 <button class="full" onclick="showAnalyzer()">
 📝 리뷰 직접 분석하기
 </button>
 
 <div class="notice">
-※ 현재는 테스트 버전입니다. 실제 AI와 맛집 데이터 연결 전의 프로토타입입니다.
+※ 현재는 테스트 버전입니다. 실제 맛집 데이터와 AI 연결 전의 프로토타입입니다.
 </div>
+
+</main>
+
+
+<!-- 검색 결과 -->
+
+<main id="results" class="content hidden">
+
+<button class="back" onclick="goHome()">
+← 홈
+</button>
+
+<div class="section">
+검색 결과
+</div>
+
+<div id="resultCount" class="result-count"></div>
+
+<div id="searchResults"></div>
 
 </main>
 
 
 <!-- 식당 상세 -->
+
 <main id="restaurant" class="content hidden">
 
-<button class="back" onclick="goHome()">← 뒤로</button>
+<button class="back" onclick="goBackToResults()">
+← 검색 결과
+</button>
 
-<div class="section">부산집 돼지국밥</div>
-<div class="muted">부산 · 돼지국밥 · ⭐ 4.4</div>
-
-<div class="card">
-<div class="muted">전체 리뷰 신뢰도</div>
-<div class="score">87</div>
-<span class="badge">신뢰도 높음</span>
-</div>
-
-<div class="section">AI가 찾은 실제 평가</div>
-
-<div class="tags">
-<span class="tag">👍 국물이 진함</span>
-<span class="tag">👍 고기 양이 많음</span>
-<span class="tag">👍 가격이 괜찮음</span>
-<span class="tag">👎 주차 불편</span>
-<span class="tag">👎 점심 대기</span>
-</div>
-
-<div class="section">신뢰도 높은 리뷰</div>
-
-<div class="card">
-<span class="badge">🟢 신뢰도 94점</span>
-
-<div class="review">
-토요일 12시쯤 방문했습니다.
-20분 정도 기다렸고 국물은 진한 편입니다.
-고기가 생각보다 많았어요.
-주차는 조금 불편했습니다.
-</div>
-
-<div class="reason">
-구체적인 방문 경험과 장점·단점이 함께 포함되어 있습니다.
-</div>
-</div>
-
-<div class="section">주의가 필요한 리뷰</div>
-
-<div class="card">
-<span class="badge red">🔴 신뢰도 43점</span>
-
-<div class="review">
-사장님 너무 친절하시고 음식도 정말 최고예요!!
-부산 최고의 국밥! 꼭 가보세요!!
-</div>
-
-<div class="reason">
-구체적인 경험보다 과도한 긍정 표현과 추천 표현이 많습니다.
-<br><br>
-※ 낮은 점수는 가짜 리뷰라는 뜻이 아닙니다.
-</div>
-</div>
+<div id="restaurantDetail"></div>
 
 </main>
 
 
 <!-- 리뷰 분석 -->
+
 <main id="analyzer" class="content hidden">
 
-<button class="back" onclick="goHome()">← 뒤로</button>
+<button class="back" onclick="goHome()">
+← 홈
+</button>
 
-<div class="section">리뷰 신뢰도 분석</div>
+<div class="section">
+리뷰 신뢰도 분석
+</div>
 
 <div class="muted">
 리뷰를 입력하면 신뢰도를 분석합니다.
@@ -172,138 +315,558 @@ placeholder="예: 토요일 오후 1시에 방문했습니다. 15분 정도 기�
 
 <script>
 
-function hideAll(){
-document.getElementById("home").classList.add("hidden");
-document.getElementById("restaurant").classList.add("hidden");
-document.getElementById("analyzer").classList.add("hidden");
+const restaurants=[
+
+{
+name:"부산집 돼지국밥",
+area:"부산",
+category:"돼지국밥",
+rating:"4.4",
+score:87,
+good:["국물이 진함","고기 양이 많음","가격이 괜찮음"],
+bad:["주차 불편","점심 대기"],
+reviews:324
+},
+
+{
+name:"광안리 바다횟집",
+area:"광안리",
+category:"횟집",
+rating:"4.5",
+score:91,
+good:["회가 신선함","바다 전망","직원 친절"],
+bad:["가격이 높은 편","주말 대기"],
+reviews:286
+},
+
+{
+name:"광안리 돼지국밥",
+area:"광안리",
+category:"돼지국밥",
+rating:"4.3",
+score:84,
+good:["국물이 진함","고기 양이 많음","24시간 영업"],
+bad:["주차 불편"],
+reviews:198
+},
+
+{
+name:"해운대 소문난 국밥",
+area:"해운대",
+category:"국밥",
+rating:"4.2",
+score:82,
+good:["가격이 저렴함","양이 많음"],
+bad:["대기시간","매장 협소"],
+reviews:176
+},
+
+{
+name:"광안리 파스타집",
+area:"광안리",
+category:"양식",
+rating:"4.6",
+score:89,
+good:["분위기 좋음","음식 맛있음","데이트하기 좋음"],
+bad:["가격 부담"],
+reviews:154
 }
+
+];
+
+
+let currentRestaurant=null;
+let lastResults=[];
+
+
+function hideAll(){
+
+document.getElementById("home").classList.add("hidden");
+
+document.getElementById("results").classList.add("hidden");
+
+document.getElementById("restaurant").classList.add("hidden");
+
+document.getElementById("analyzer").classList.add("hidden");
+
+}
+
 
 function goHome(){
+
 hideAll();
+
 document.getElementById("home").classList.remove("hidden");
+
 window.scrollTo(0,0);
+
 }
 
-function showRestaurant(){
-hideAll();
-document.getElementById("restaurant").classList.remove("hidden");
-window.scrollTo(0,0);
-}
 
 function showAnalyzer(){
+
 hideAll();
+
 document.getElementById("analyzer").classList.remove("hidden");
+
 window.scrollTo(0,0);
+
 }
+
+
+function renderHome(){
+
+const list=document.getElementById("homeList");
+
+list.innerHTML="";
+
+restaurants.slice(0,3).forEach(function(item){
+
+list.innerHTML+=`
+
+<div class="card clickable" onclick="openRestaurant(${restaurants.indexOf(item)})">
+
+<div class="name">
+${item.name}
+</div>
+
+<div class="muted">
+${item.area} · ${item.category} · ⭐ ${item.rating}
+</div>
+
+<div class="score">
+${item.score}
+</div>
+
+<span class="badge">
+리뷰 신뢰도 높음
+</span>
+
+<div class="tags">
+
+<span class="tag">
+🟢 리뷰 ${item.reviews}
+</span>
+
+<span class="tag">
+찐리뷰 ${item.score}
+</span>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
 
 function searchRestaurant(){
-let word=document.getElementById("search").value.trim();
+
+const word=document
+.getElementById("search")
+.value
+.trim()
+.toLowerCase();
 
 if(!word){
-alert("맛집 이름을 입력해주세요.");
+
+alert("맛집이나 지역을 입력해주세요.");
+
 return;
+
 }
 
-showRestaurant();
+
+lastResults=restaurants.filter(function(item){
+
+const text=(
+item.name+
+item.area+
+item.category
+).toLowerCase();
+
+return text.includes(word);
+
+});
+
+
+hideAll();
+
+document
+.getElementById("results")
+.classList
+.remove("hidden");
+
+
+document.getElementById("resultCount").innerText=
+`"${word}" 검색 결과 ${lastResults.length}곳`;
+
+
+const box=document.getElementById("searchResults");
+
+box.innerHTML="";
+
+
+if(lastResults.length===0){
+
+box.innerHTML=`
+
+<div class="empty">
+
+검색 결과가 없습니다.<br><br>
+
+다른 맛집이나 지역을 검색해보세요.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+lastResults.forEach(function(item){
+
+const index=restaurants.indexOf(item);
+
+box.innerHTML+=`
+
+<div class="card clickable"
+onclick="openRestaurant(${index})">
+
+<div class="name">
+${item.name}
+</div>
+
+<div class="muted">
+${item.area} · ${item.category} · ⭐ ${item.rating}
+</div>
+
+<div class="score">
+${item.score}
+</div>
+
+<span class="badge">
+찐리뷰 신뢰도
+</span>
+
+<div class="tags">
+
+<span class="tag">
+🟢 리뷰 ${item.reviews}
+</span>
+
+<span class="tag">
+⭐ ${item.rating}
+</span>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+window.scrollTo(0,0);
+
+}
+
+
+function openRestaurant(index){
+
+currentRestaurant=restaurants[index];
+
+hideAll();
+
+document
+.getElementById("restaurant")
+.classList
+.remove("hidden");
+
+
+const item=currentRestaurant;
+
+let goodTags="";
+
+item.good.forEach(function(text){
+
+goodTags+=`
+<span class="tag">👍 ${text}</span>
+`;
+
+});
+
+
+let badTags="";
+
+item.bad.forEach(function(text){
+
+badTags+=`
+<span class="tag">👎 ${text}</span>
+`;
+
+});
+
+
+document.getElementById("restaurantDetail").innerHTML=`
+
+<div class="section">
+${item.name}
+</div>
+
+<div class="muted">
+${item.area} · ${item.category} · ⭐ ${item.rating}
+</div>
+
+<div class="card">
+
+<div class="muted">
+전체 리뷰 신뢰도
+</div>
+
+<div class="score">
+${item.score}
+</div>
+
+<span class="badge">
+신뢰도 높음
+</span>
+
+</div>
+
+
+<div class="section">
+AI가 찾은 실제 평가
+</div>
+
+<div class="tags">
+${goodTags}
+${badTags}
+</div>
+
+
+<div class="section">
+리뷰 분석
+</div>
+
+<div class="card">
+
+<span class="badge">
+🟢 신뢰도 높은 리뷰
+</span>
+
+<div class="review">
+
+실제 방문 시간과 음식에 대한 구체적인 경험이 포함된 리뷰가 상대적으로 신뢰도가 높게 평가됩니다.
+
+</div>
+
+<div class="reason">
+
+찐리뷰는 단순한 별점보다 방문 경험의 구체성, 표현 패턴 등을 분석하는 것을 목표로 합니다.
+
+</div>
+
+</div>
+
+
+<div class="section">
+주의가 필요한 리뷰
+</div>
+
+<div class="card">
+
+<span class="badge red">
+🔴 확인 필요
+</span>
+
+<div class="review">
+
+"최고예요", "무조건 추천"처럼 구체적인 경험 없이 홍보성 표현이 반복되는 리뷰는 추가 확인이 필요합니다.
+
+</div>
+
+<div class="reason">
+
+※ 낮은 신뢰도 점수는 가짜 리뷰라는 뜻이 아닙니다.
+
+</div>
+
+</div>
+
+`;
+
+window.scrollTo(0,0);
+
+}
+
+
+function goBackToResults(){
+
+if(lastResults.length>0){
+
+hideAll();
+
+document
+.getElementById("results")
+.classList
+.remove("hidden");
+
+}else{
+
+goHome();
+
+}
+
+window.scrollTo(0,0);
+
 }
 
 
 function analyzeReview(){
 
-let text=document.getElementById("reviewText").value.trim();
+let text=document
+.getElementById("reviewText")
+.value
+.trim();
 
 if(!text){
+
 alert("리뷰를 입력해주세요.");
+
 return;
+
 }
 
 let score=60;
+
 let reasons=[];
 
 
-/* 구체적인 경험 */
-let specificWords=[
+const specificWords=[
 "방문","오늘","어제","토요일","일요일",
 "평일","시간","분","원","가격",
 "메뉴","주문","기다","주차",
 "국물","고기","맛","양","직원"
 ];
 
+
 let specificCount=0;
 
 specificWords.forEach(function(word){
-if(text.includes(word)) specificCount++;
+
+if(text.includes(word))
+specificCount++;
+
 });
 
-score += Math.min(specificCount*3,25);
+
+score+=Math.min(specificCount*3,25);
 
 
-/* 홍보성 표현 */
-let promotionWords=[
+const promotionWords=[
 "최고","강추","꼭 가보세요",
 "인생","완전","대박",
 "무조건","강력 추천"
 ];
 
+
 let promotionCount=0;
 
 promotionWords.forEach(function(word){
-if(text.includes(word)) promotionCount++;
+
+if(text.includes(word))
+promotionCount++;
+
 });
 
-score -= Math.min(promotionCount*5,25);
+
+score-=Math.min(promotionCount*5,25);
 
 
-/* 느낌표 */
-let exclamation=(text.match(/!/g)||[]).length;
+let exclamation=
+(text.match(/!/g)||[]).length;
 
-score -= Math.min(exclamation*3,15);
+score-=Math.min(exclamation*3,15);
 
 
-/* 너무 짧은 리뷰 */
 if(text.length<35){
+
 score-=15;
-reasons.push("리뷰가 짧아 구체적인 경험 정보가 적습니다.");
+
+reasons.push(
+"리뷰가 짧아 구체적인 경험 정보가 적습니다."
+);
+
 }
 
 
-/* 구체성 */
 if(specificCount>=3){
-reasons.push("방문·메뉴·시간·가격 등 구체적인 경험이 포함되어 있습니다.");
+
+reasons.push(
+"방문·메뉴·시간·가격 등 구체적인 경험이 포함되어 있습니다."
+);
+
 }
 
 
-/* 홍보성 */
 if(promotionCount>=2){
-reasons.push("과도한 긍정 또는 추천 표현이 여러 개 포함되어 있습니다.");
+
+reasons.push(
+"과도한 긍정 또는 추천 표현이 여러 개 포함되어 있습니다."
+);
+
 }
 
 
-/* 느낌표 */
 if(exclamation>=2){
-reasons.push("느낌표가 반복되어 홍보성 표현 가능성을 확인할 필요가 있습니다.");
+
+reasons.push(
+"느낌표가 반복되어 홍보성 표현 가능성을 확인할 필요가 있습니다."
+);
+
 }
 
 
-/* 점수 제한 */
-score=Math.max(10,Math.min(98,score));
+score=Math.max(
+10,
+Math.min(98,score)
+);
 
 
 let badgeClass="badge";
+
 let label="🟢 신뢰도 높음";
 
+
 if(score<50){
+
 badgeClass="badge red";
+
 label="🔴 주의 필요";
+
 }
+
 else if(score<75){
+
 badgeClass="badge yellow";
+
 label="🟡 판단 보류";
+
 }
 
 
 if(reasons.length===0){
-reasons.push("현재 입력된 내용만으로는 뚜렷한 이상 신호가 많지 않습니다.");
+
+reasons.push(
+"현재 입력된 내용만으로는 뚜렷한 이상 신호가 많지 않습니다."
+);
+
 }
 
 
@@ -324,10 +887,14 @@ ${score}
 </div>
 
 <div class="reason">
+
 ${reasons.join("<br>")}
+
 <br><br>
+
 ※ 이것은 가짜 리뷰 여부를 판정하는 기능이 아닙니다.
-리뷰의 구체성·홍보성·표현 패턴 등을 분석한 프로토타입입니다.
+리뷰의 구체성·홍보성·표현 패턴 등을 분석하는 프로토타입입니다.
+
 </div>
 
 </div>
@@ -335,6 +902,9 @@ ${reasons.join("<br>")}
 `;
 
 }
+
+
+renderHome();
 
 </script>
 
