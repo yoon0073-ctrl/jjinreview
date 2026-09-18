@@ -465,18 +465,15 @@ ${item.score}
 
 function searchRestaurant(){
 
-const word=document
-.getElementById("search")
-.value
-.trim()
-.toLowerCase();
+const word = document
+  .getElementById("search")
+  .value
+  .trim()
+  .toLowerCase();
 
-if(!word){
-
-alert("맛집이나 지역을 입력해주세요.");
-
-return;
-
+if (!word) {
+  showHome();   // 알림 대신 홈으로 이동
+  return;
 }
 
 
